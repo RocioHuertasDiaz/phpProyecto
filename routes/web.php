@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PersonaController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\CategoryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -48,5 +49,16 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+/*Category*/
+
+Route::get('/categories',[CategoryController::class,'show']);
+
+Route::get('/categories/form/{id?}',[CategoryController::class,'form'])->name('category.form');
+Route::post('/categories/save',[CategoryController::class,'save'])->name('category.save');
+Route::get('/categories/delete/{id}',[CategoryController::class,'delete'])->name('category.delete');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 

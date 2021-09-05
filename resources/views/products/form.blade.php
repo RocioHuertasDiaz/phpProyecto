@@ -79,6 +79,26 @@
         
     </div>
     <div class="row mb-3">
+        <label for="category" class="col-sm-2 col-form-label">Categoria</label>
+        <div class="col-sm-10">
+        <select name="category" class="form-select">
+            @foreach ($categories as $category)
+                <option value="{{ $category->id }}"
+                        {{ $product->category_id == $category->id ? "selected" : ""}}                  
+                    >
+                    {{ $category->name }}
+                </option>
+            @endforeach
+          </select>
+          @error('category')
+        <p class="text-danger">
+            {{ $message}}
+        </p>
+        @enderror
+        </div>
+        
+    </div>
+    <div class="row mb-3">
         <div class="col-sm-10">  </div>      
         <div class="col-sm-4">        
             <a href="/products" class="btn btn-secondary">Cancelar</a>

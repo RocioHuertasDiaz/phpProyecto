@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Brand;
+use App\Models\Category;
+
 class ProductController extends Controller
 {
     function __construct(){
@@ -21,12 +23,15 @@ class ProductController extends Controller
     function form($id=null){
         $product= new product();
         $brands= Brand::all();
+        $categories= Category::all();
+        
         if($id!=null){
             $product= Product::findOrfail($id);
         }
         return view('products/form',[
             'product'=> $product,
-            'brands'=> $brands
+            'brands'=> $brands,
+            'categories'=> $category
 
         ]);
     }
@@ -38,7 +43,8 @@ class ProductController extends Controller
             "cost"=>'required|numeric',
             "price"=>'required|numeric',
             "quantity"=>'required|numeric',
-            "brand"=>'required'
+            "brand"=>'required',
+            "category"=>'required|max:100'
         ]);
 
 
@@ -51,6 +57,7 @@ class ProductController extends Controller
         $product -> price = $request->price;
         $product -> quantity = $request->quantity;
         $product -> brand_id = $request->brand;
+        $product ->category_id = $request->category;
 
         $product->save();
         return redirect('/products')->with('message','Producto guardado');
